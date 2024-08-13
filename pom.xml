@@ -4,18 +4,31 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>iec-analysis</groupId>
-    <artifactId>iec</artifactId>
+    <groupId>com.github.mujave</groupId>
+    <artifactId>iec-104</artifactId>
     <packaging>pom</packaging>
-    <version>2.0</version>
-    <modules>
-        <module>iec_interaction</module>
-        <module>iec_analysis</module>
-    </modules>
+    <version>4.0.0</version>
 
     <properties>
         <java.version>1.8</java.version>
+        <hutool.version>5.8.30</hutool.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.1.112.Final</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
