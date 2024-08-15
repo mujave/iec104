@@ -5,26 +5,42 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.mujave</groupId>
-    <artifactId>iec-104</artifactId>
+    <artifactId>iec104</artifactId>
     <packaging>pom</packaging>
+
+    <modules>
+        <module>iec104-core</module>
+        <module>iec104-test</module>
+    </modules>
+
     <version>4.0.0</version>
 
     <properties>
+        <iec104.version>4.0.0</iec104.version>
         <java.version>1.8</java.version>
         <hutool.version>5.8.30</hutool.version>
+        <slf4j.version>1.7.32</slf4j.version>
+        <netty.version>4.1.111.Final</netty.version>
+        <lombok.version>1.18.30</lombok.version>
+        <logback.version>1.2.6</logback.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>4.1.112.Final</version>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
