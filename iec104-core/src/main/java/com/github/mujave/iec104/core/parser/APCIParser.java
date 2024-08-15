@@ -12,7 +12,7 @@ import com.github.mujave.iec104.core.parser.frame.*;
  */
 class APCIParser implements Parser {
 
-    ASDUParser asduParser = new ASDUParser();
+    ASDUParser asduParser= new ASDUParser();
 
     @Override
     public AIec104Frame analysis(byte[] msg) throws ParserException {

@@ -3,7 +3,7 @@ package com.github.mujave.iec104.core.constant;
 /**
  * 传送原因枚举
  */
-public enum AsduCot {
+public enum   AsduCot {
     NO_USE(0x00, "未用"),
     PER_CYC(0x01, "周期、循环"),
     BACK(0x02, "背景扫描"),
