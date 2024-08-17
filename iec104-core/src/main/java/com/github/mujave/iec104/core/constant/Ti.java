@@ -3,7 +3,7 @@ package com.github.mujave.iec104.core.constant;
 /**
  * 类型标识符
  */
-public enum AsduTi {
+public enum Ti {
 
     //------监视方向的过程信息------
     M_SP_NA_1(1, "(遥信)单点信息"),
@@ -57,13 +57,13 @@ public enum AsduTi {
     private short code;
     private String name;
 
-    AsduTi(int code, String name) {
+    Ti(int code, String name) {
         this.code = (short) code;
         this.name = name;
     }
 
-    public static AsduTi valueOfCode(short code) {
-        for (AsduTi value : AsduTi.values()) {
+    public static Ti valueOfCode(short code) {
+        for (Ti value : Ti.values()) {
             if (value.code == code) {
                 return value;
             }

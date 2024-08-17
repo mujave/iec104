@@ -3,7 +3,7 @@ package com.github.mujave.iec104.core.constant;
 /**
  * 传送原因枚举
  */
-public enum   AsduCot {
+public enum Cot {
     NO_USE(0x00, "未用"),
     PER_CYC(0x01, "周期、循环"),
     BACK(0x02, "背景扫描"),
@@ -21,13 +21,13 @@ public enum   AsduCot {
     private short code;
     private String name;
 
-    AsduCot(int code, String name) {
+    Cot(int code, String name) {
         this.code = (short) code;
         this.name = name;
     }
 
-    public static AsduCot valueOfCode(short code) {
-        for (AsduCot value : AsduCot.values()) {
+    public static Cot valueOfCode(short code) {
+        for (Cot value : Cot.values()) {
             if (value.code == code) {
                 return value;
             }

@@ -55,7 +55,7 @@ class APCIParser implements Parser {
 
     public UIec104Frame analysis_U(byte[] msg) {
         UIec104Frame uIec104Frame = new UIec104Frame();
-        short b_1 = (short) ((short) (msg[2] & 0xff) >> 2);
+        short b_1 = (short) ((msg[2] & 0xff) >> 2 );
         switch (b_1) {
             case 1:
                 uIec104Frame.setFunction(UFrameControlType.STARTDT_C);

@@ -35,7 +35,7 @@ public class SinglePointRemoteControl implements Frame {
 
     @Override
     public String console() {
-        return StrUtil.format("遥控单点对象: {}   {}",
+        return StrUtil.format(" 遥控单点对象: {}   {}",
                 type ? "遥控选择指令" : "遥控执行指令",
                 getStatu(this.statu)
         );
