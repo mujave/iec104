@@ -63,7 +63,7 @@ public class ASDUFrame implements Frame {
     public String console() {
         String head = StrUtil.format("  类型标识符:{}({})\n" + "  可变结构限定词:sq={}\t信息元素个数={}\n" + "  传输原因:{}({})\tT={}\tP/N={}\tASDU公共地址:{}\n" +
                         "---------------------------------------------\n"
-                , ti.getName(), ti.name(), sq ? "地址连续" : "地址不连续", number, cot.getName(), cot.name(), t ? "未试验" : "试验", p_n ? "肯定确认" : "否定确认", address);
+                , ti.getName(), ti.name(), sq ? "地址连续" : "地址不连续", number, cot.getName(), cot.name(), t ? "试验" : "未试验", p_n ? "否定确认" : "肯定确认", address);
 
         StringBuilder body = new StringBuilder();
 
