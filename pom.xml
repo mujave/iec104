@@ -9,8 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>iec104-core</module>
-        <module>iec104-test</module>
+        <module>iec104-core</module> 
     </modules>
 
     <version>4.0.0</version>

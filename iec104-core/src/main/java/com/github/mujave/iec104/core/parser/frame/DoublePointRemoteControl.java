@@ -16,10 +16,10 @@ public class DoublePointRemoteControl implements Frame {
 
     /**
      * 开关状态
-     * 0.不允许，有错误
+     * 0.不允许,有错误
      * 1.开关分
      * 2.开关合
-     * 3.不允许，有错误
+     * 3.不允许,有错误
      */
     private int statu;
 
@@ -59,7 +59,7 @@ public class DoublePointRemoteControl implements Frame {
                 return "开关合";
             case 3:
             case 0:
-                return "不允许，有错误";
+                return "不允许,有错误";
         }
         return "";
     }
