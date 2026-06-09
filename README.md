@@ -1,7 +1,7 @@
 # 电网规约解析与组装
 
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
-[![iec_analysis](https://badgen.net/badge/icon/iec?icon=github&label)](https://github.com/mujave/iec)
+[![iec_analysis](https://badgen.net/badge/icon/iec?icon=github&label)](https://github.com/mujave/iec104)
 
 ## 项目简介
 
