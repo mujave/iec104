@@ -1,6 +1,7 @@
 package com.github.mujave.iec104.core.parser;
 
 import cn.hutool.core.util.ByteUtil;
+import com.github.mujave.iec104.core.constant.FrameType;
 import com.github.mujave.iec104.core.constant.UFrameControlType;
 import com.github.mujave.iec104.core.parser.frame.*;
 
@@ -24,14 +25,34 @@ class APCIParser implements Parser {
     ASDUParser asduParser = new ASDUParser();
 
     /**
-     * 解析 APCI 控制域，识别帧类型并调用相应的解析方法
+     * 根据控制域识别帧类型
      * 
-     * <p>帧类型识别规则（基于控制域最低两位）：
+     * <p>帧类型由控制域的最低两位决定：
      * <ul>
      *   <li>I帧: b1[0] == 0 且 b3[0] == 0</li>
      *   <li>S帧: b1[1:0] == 01 且 b3[0] == 0</li>
      *   <li>U帧: b1[1:0] == 11 且 b3[0] == 0</li>
      * </ul>
+     * 
+     * @param msg 待解析的字节数组（至少需要 6 字节）
+     * @return 帧类型枚举值
+     */
+    public FrameType identifyFrameType(byte[] msg) {
+        short b_1 = (short) (msg[2] & 0b11111111);
+        short b_3 = (short) (msg[4] & 0b11111111);
+        
+        if ((b_1 & 0b00000001) == 0 && (b_3 & 0b00000001) == 0) {
+            return FrameType.I;
+        } else if ((b_1 & 0b00000011) == 1 && (b_3 & 0b00000001) == 0) {
+            return FrameType.S;
+        } else if ((b_1 & 0b00000011) == 3 && (b_3 & 0b00000001) == 0) {
+            return FrameType.U;
+        }
+        return FrameType.UNKNOWN;
+    }
+
+    /**
+     * 解析 APCI 控制域，识别帧类型并调用相应的解析方法
      * 
      * @param msg 待解析的字节数组
      * @return 解析后的 IEC 104 帧对象
@@ -39,21 +60,30 @@ class APCIParser implements Parser {
      */
     @Override
     public AIec104Frame analysis(byte[] msg) throws ParserException {
-        short b_1 = (short) (msg[2] & 0xff);
-        short b_3 = (short) (msg[4] & 0xff);
+        FrameType frameType = identifyFrameType(msg);
+
+        // 获取声明长度并验证一致性
+        int declaredLen = msg[1] & 0xff;
         
-        // 根据控制域判断报文类型
-        if ((b_1 & 0x01) == 0 && (b_3 & 0x01) == 0) {
-            // I帧 - 信息帧
-            return analysis_I(msg);
-        } else if ((b_1 & 0x03) == 1 && (b_3 & 0x01) == 0) {
-            // S帧 - 监控帧
-            return analysis_S(msg);
-        } else if ((b_1 & 0x03) == 3 && (b_3 & 0x01) == 0) {
-            // U帧 - 无编号帧
-            return analysis_U(msg);
+        switch (frameType) {
+            case I:
+                if (declaredLen < 10) {
+                    throw new ParserException("I帧ASDU长度不足,至少需要10字节");
+                }
+                return analysis_I(msg);
+            case S:
+                if (declaredLen != 4) {
+                    throw new ParserException("S帧长度必须为4字节");
+                }
+                return analysis_S(msg);
+            case U:
+                if (declaredLen != 4) {
+                    throw new ParserException("U帧长度必须为4字节");
+                }
+                return analysis_U(msg);
+            default:
+                return null;
         }
-        return null;
     }
 
     /**

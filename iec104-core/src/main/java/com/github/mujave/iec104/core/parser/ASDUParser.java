@@ -4,19 +4,16 @@ package com.github.mujave.iec104.core.parser;
 import cn.hutool.core.util.ByteUtil;
 import com.github.mujave.iec104.core.constant.Cot;
 import com.github.mujave.iec104.core.constant.Ti;
-import com.github.mujave.iec104.core.parser.frame.*;
-import com.github.mujave.iec104.core.parser.infowrapper.IInfoWrapper;
-
-import java.util.HashMap;
+import com.github.mujave.iec104.core.parser.frame.ASDUFrame;
 
 /**
- * ASDU (Application Service Data Unit) 解析器
+ * ASDU 解析器
  * 
  * <p>ASDU 是 IEC 104 协议的应用服务数据单元，包含实际的用户数据。
  * ASDU 结构如下：
  * <pre>
- * | TI (1) | SQ+NUM (1) | COT (1) | T+P/N (1) | ADDR (2) | InfoElements |
- *   类型标识符   可变结构限定词   传输原因   测试/确认位   公共地址    信息元素
+ * |   TI (1)   |   SQ+NUM (1)   |  COT (1)  |  T+P/N (1)  |  ADDR (2)  | InfoElements |
+ *   类型标识符     可变结构限定词    传输原因     测试/确认位     公共地址      信息元素
  * </pre>
  * 
  * <p>ASDU 解析器负责：

@@ -3,8 +3,8 @@ package com.github.mujave.iec104.core.parser.frame.codec;
 import com.github.mujave.iec104.core.constant.Ti;
 import com.github.mujave.iec104.core.parser.ParserException;
 import com.github.mujave.iec104.core.parser.frame.InfoElementCodec;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,7 @@
 package com.github.mujave.iec104.core.parser;
 
 
+import com.github.mujave.iec104.core.constant.FrameType;
 import com.github.mujave.iec104.core.parser.frame.AIec104Frame;
 
 /**
@@ -11,14 +12,14 @@ import com.github.mujave.iec104.core.parser.frame.AIec104Frame;
  * <pre>
  * |------------------------APDU-----------------------|
  * |-68H-LEN-|--------APCI--------|--------ASDU--------|
- *   2字节     4-6字节            可变长度
+ *    2字节          4-6字节              可变长度
  * </pre>
  * 
  * <p>APDU 解析器负责：
  * <ul>
  *   <li>验证启动符（必须为 0x68）</li>
  *   <li>验证报文长度一致性</li>
- *   <li>识别帧类型（I帧/S帧/U帧）</li>
+ *   <li>调用 APCI 解析器识别帧类型并验证长度要求</li>
  *   <li>调用 APCI 解析器进行进一步解析</li>
  * </ul>
  *
@@ -46,7 +47,7 @@ public class APDUParser implements Parser {
      *   <li>验证启动符是否为 0x68</li>
      *   <li>验证声明长度与实际长度是否一致</li>
      *   <li>验证 APCI 最小长度（至少 4 字节）</li>
-     *   <li>根据控制域识别帧类型</li>
+     *   <li>调用 APCI 解析器识别帧类型</li>
      *   <li>验证各类帧的最小长度要求</li>
      *   <li>调用 APCI 解析器解析具体帧</li>
      * </ol>
@@ -76,27 +77,7 @@ public class APDUParser implements Parser {
         // 验证 APCI 最小长度
         if (declaredLen < 4) {
             throw new ParserException("APCI长度不足,至少需要4字节");
-        }
-        
-        // 根据控制域识别帧类型
-        short b1 = (short) (msg[2] & 0xff);
-        short b3 = (short) (msg[4] & 0xff);
-        boolean isIFrame = (b1 & 0x01) == 0 && (b3 & 0x01) == 0;
-        boolean isSFrame = (b1 & 0x03) == 1 && (b3 & 0x01) == 0;
-        boolean isUFrame = (b1 & 0x03) == 3 && (b3 & 0x01) == 0;
-        
-        // 验证各类帧的长度要求
-        if (isIFrame) {
-            if (declaredLen < 10) {
-                throw new ParserException("I帧ASDU长度不足,至少需要10字节");
-            }
-        } else if (isSFrame || isUFrame) {
-            if (declaredLen != 4) {
-                throw new ParserException("S帧/U帧长度必须为4字节");
-            }
-        } else {
-            throw new ParserException("无法识别的帧类型");
-        }
+        } 
         
         // 调用 APCI 解析器解析具体帧
         AIec104Frame iec104Frame = apciParser.analysis(msg);

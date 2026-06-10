@@ -13,4 +13,5 @@ public interface Frame {
      * @return
      */
     String console();
+
 }

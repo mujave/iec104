@@ -1,11 +1,9 @@
 package com.github.mujave.iec104.core.parser.frame;
 
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ByteUtil;
 import com.github.mujave.iec104.core.constant.Ti;
 import com.github.mujave.iec104.core.parser.ParserException;
 
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractInfoElementCodec implements InfoElementCodec {
